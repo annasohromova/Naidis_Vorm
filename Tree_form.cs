@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Naidis_Vorm
 {
     internal class Tree_form:Form
@@ -11,18 +12,18 @@ namespace Naidis_Vorm
         Button btn;
         TreeView tree;
         Label lbl;
+        RadioButton r1, r2;
+        CheckBox c1, c2;
+        TextBox txt_box;
+        PictureBox pb;
+        Label txtLabel;
         bool isBtnVisible = false;
         bool isLblVisible = false;
         bool isTxtVisible = false;
-        bool isr1Visible=false;
+        bool isr1Visible = false;
         bool isr2Visible = false;
         bool isc1Visible = false;
         bool isc2Visible = false;
-        TextBox txt_box;
-        RadioButton r1, r2;
-        CheckBox c1, c2;
-        PictureBox pb;
-        Label txtLabel;
         public Tree_form()
         {
             this.Height = 600;
@@ -104,7 +105,28 @@ namespace Naidis_Vorm
                                                                        //события. Оно состоит из двух параметров sender и e, которые представляют
                                                                        //отправителя события и
                                                                        //аргументы события (обычно не используются в данном случае)
+                                                                       //treeNode.Nodes.Add(new TreeNode("DataGridView"));
+                                                                       //DataSet ds = new DataSet("XML fail. Raamat");
+                                                                       //ds.ReadXml(@"..\..\..\books.xml");
+                                                                       //DataGridView dataGrid = new DataGridView();
+                                                                       //dataGrid.Location = new Point(tree.Width + pb.Width, pb.Location.Y);
+                                                                       //dataGrid.Height = 200;
+                                                                       //dataGrid.Width = 300;
+                                                                       //dataGrid.DataSource = ds;
+                                                                       //dataGrid.AutoGenerateColumns = true;
+                                                                       //dataGrid.DataMember = "book";
 
+
+            Button openNewWindowButton = new Button();
+            openNewWindowButton.Text = "Triangle";
+            openNewWindowButton.Location = new Point(150, 80);
+            openNewWindowButton.Click += OpenNewWindowButton_Click;
+            this.Controls.Add(openNewWindowButton);
+
+
+            //this.Controls.Add(dataGrid);
+            tree.Nodes.Add(treeNode);
+            //this.Controls.Add(dataGrid);
             tree.Nodes.Add(treeNode);
             this.Controls.Add(r1);
             this.Controls.Add(r2);
@@ -120,6 +142,17 @@ namespace Naidis_Vorm
             r1.Visible= false;
             r2.Visible= false;
 
+        }
+        private void OpenNewWindowButton_Click(object sender, EventArgs e)
+        {
+            Tree_form newForm = new Tree_form();
+            newForm.Show();
+
+            Triangle triangle = new Triangle(6, 7, 8);
+            double perimeter = triangle.Perimeter();
+            double surface = triangle.Surface();
+
+            MessageBox.Show($"Perimeter: {perimeter}, Surface: {surface}, Triangle type: {CalculateSemiPerimeter}");
         }
         private void Txt_box_KeyDown(object sender, KeyEventArgs e)
         {
@@ -203,17 +236,42 @@ namespace Naidis_Vorm
                 pb.Visible = true;
             }
         }
-        private void Btn_Click(object? sender, EventArgs e)
+        private void Btn_Click(object sender, EventArgs e)
         {
-            if(btn.BackColor == Color.Pink) 
+            if (btn.BackColor == Color.Aqua)
             {
-                btn.BackColor = Color.PaleGreen; 
+                btn.BackColor = Color.Chocolate;
             }
             else
             {
-                btn.BackColor = Color.Pink;
+                btn.BackColor = Color.Aqua;
             }
-            
+        }
+
+        private void ChangeColorMenuItem_Click(object sender, EventArgs e)
+        {
+            btn.BackColor = Color.Black;
+        }
+
+        private void Btn_MouseEnter(object sender, EventArgs e)
+        {
+            btn.BackColor = Color.Red;
+        }
+
+        private void Btn_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Middle)
+            {
+                btn.BackColor = Color.White;
+            }
+        }
+
+        private void Btn_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                MessageBox.Show("Double");
+            }
         }
     }
 }
