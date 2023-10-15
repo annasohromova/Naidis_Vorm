@@ -24,6 +24,10 @@ namespace Naidis_Vorm
         bool isr2Visible = false;
         bool isc1Visible = false;
         bool isc2Visible = false;
+        private TextBox sideATextBox;
+        private TextBox sideBTextBox;
+        private TextBox sideCTextBox;
+        private Button calculateButton;
         public Tree_form()
         {
             this.Height = 600;
@@ -145,14 +149,66 @@ namespace Naidis_Vorm
         }
         private void OpenNewWindowButton_Click(object sender, EventArgs e)
         {
-            Tree_form newForm = new Tree_form();
-            newForm.Show();
+            // Создаем новое окно для ввода значений сторон треугольника
+            Form inputForm = new Form();
+            inputForm.Text = "Triangle Input";
+            inputForm.Width = 300;
+            inputForm.Height = 200;
 
-            Triangle triangle = new Triangle(6, 7, 8);
-            double perimeter = triangle.Perimeter();
-            double surface = triangle.Surface();
+            Label labelA = new Label();
+            labelA.Text = "Side A:";
+            labelA.Location = new Point(20, 20);
+            inputForm.Controls.Add(labelA);
 
-            MessageBox.Show($"Perimeter: {perimeter}, Surface: {surface}, Triangle type: {CalculateSemiPerimeter}");
+            TextBox textBoxA = new TextBox();
+            textBoxA.Location = new Point(100, 20);
+            textBoxA.Size = new Size(100, textBoxA.Height); // Установите размер, например, ширина 100 пикселей
+            inputForm.Controls.Add(textBoxA);
+
+
+            Label labelB = new Label();
+            labelB.Text = "Side B:";
+            labelB.Location = new Point(20, 50);
+            inputForm.Controls.Add(labelB);
+
+            TextBox textBoxB = new TextBox();
+            textBoxB.Location = new Point(100, 50);
+            textBoxB.Size = new Size(100, textBoxB.Height);
+            inputForm.Controls.Add(textBoxB);
+
+            Label labelC = new Label();
+            labelC.Text = "Side C:";
+            labelC.Location = new Point(20, 80);
+            inputForm.Controls.Add(labelC);
+
+            TextBox textBoxC = new TextBox();
+            textBoxC.Location = new Point(100, 80);
+            textBoxC.Size = new Size(100, textBoxC.Height);
+            inputForm.Controls.Add(textBoxC);
+
+            Button calculateButton = new Button();
+            calculateButton.Text = "Calculate";
+            calculateButton.Location = new Point(100, 110);
+            inputForm.Controls.Add(calculateButton);
+
+            // Обработчик события для кнопки Calculate
+            calculateButton.Click += (s, ev) =>
+            {
+                if (double.TryParse(textBoxA.Text, out double a) && double.TryParse(textBoxB.Text, out double b) && double.TryParse(textBoxC.Text, out double c))
+                {
+                    Triangle triangle = new Triangle(a, b, c);
+                    double perimeter = triangle.Perimeter();
+                    double surface = triangle.Surface();
+                    string triangleType = triangle.TriangleType;
+                    MessageBox.Show($"Perimeter: {perimeter}, Surface: {surface}, Triangle type: {triangleType}");
+                }
+                else
+                {
+                    MessageBox.Show("Please enter valid numerical values for sides A, B, and C.");
+                }
+            };
+
+            inputForm.Show(); // Отобразить новую вкладку для ввода значений
         }
         private void Txt_box_KeyDown(object sender, KeyEventArgs e)
         {

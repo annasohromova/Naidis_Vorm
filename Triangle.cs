@@ -93,9 +93,10 @@ namespace Naidis_Vorm
         {
             get
             {
-                if ((a < b + c) && (b < a + c) && (c < a + b))
-                    return false;
-                else return true;
+                if (a < b + c && b < a + c && c < a + b)
+                    return true; // Треугольник существует
+                else
+                    return false; // Треугольник не существует
             }
         }
 
