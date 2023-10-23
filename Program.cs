@@ -1,17 +1,25 @@
-namespace Naidis_Vorm
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing; // Подключение пространства имен для Point класса
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using jalgpall;
+
+
+namespace jalgpall
 {
-    internal static class Program
+    public class Program
     {
-        /// <summary>
-        ///  The main entry point for the application.
-        /// </summary>
-        [STAThread]
-        static void Main()
+        public static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
-            ApplicationConfiguration.Initialize();
-            Application.Run(new Tree_form());
+            Console.SetWindowSize(80, 20);
+            Console.ForegroundColor = ConsoleColor.Green;
+            Walls walls = new Walls(80, 25);
+            walls.Draw();
+            Console.ReadLine();
+            Console.Clear();
+
         }
     }
 }
